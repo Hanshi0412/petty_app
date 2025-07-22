@@ -1,3 +1,4 @@
+// main.dart
 import 'package:flutter/material.dart';
 import 'package:petty_app/screens/splash_screen.dart';
 import 'package:petty_app/screens/onboarding_screen.dart';
@@ -6,6 +7,10 @@ import 'package:petty_app/screens/home_screen.dart';
 import 'package:petty_app/screens/forgot_password_screen.dart';
 import 'package:petty_app/screens/signup_screen.dart';
 import 'package:provider/provider.dart';
+// Import the screens for navigation
+import 'package:petty_app/screens/store/Shop_Screen.dart'; // Make sure this path is correct
+import 'package:petty_app/screens/store/store_list_view.dart'; // Make sure this path is correct
+import 'package:petty_app/screens/store/store_profile.dart'; // Make sure this path is correct
 
 MaterialColor createMaterialColor(Color color) {
   final strengths = <double>[.05];
@@ -17,7 +22,6 @@ MaterialColor createMaterialColor(Color color) {
   for (int i = 1; i < 10; i++) {
     strengths.add(0.1 * i);
   }
-
   for (final strength in strengths) {
     final double ds = 0.5 - strength;
     swatch[(strength * 1000).round()] = Color.fromRGBO(
@@ -56,7 +60,8 @@ class MyApp extends StatelessWidget {
           visualDensity: VisualDensity.adaptivePlatformDensity,
           scaffoldBackgroundColor: Colors.grey[100],
         ),
-        home: const SplashScreen(),
+        // Set store_list_view.dart as the initial screen
+        home: const PetStoreHomePage(),
         routes: {
           '/splash': (context) => const SplashScreen(),
           '/onboarding': (context) => const OnboardingScreen(),
@@ -64,6 +69,12 @@ class MyApp extends StatelessWidget {
           '/signup': (context) => const SignupScreen(),
           '/forgot-password': (context) => const ForgotPasswordScreen(),
           '/home': (context) => const HomeScreen(),
+          // Define routes for the store navigation flow
+          '/store_list': (context) => const PetStoreHomePage(),
+          '/store_profile': (context) =>
+              const FoodShopProfileScreen(), // Correct: FoodShopProfileScreen from store_profile.dart
+          '/shop_screen': (context) =>
+              const FoodShopScreen(), // Corrected from ShopScreen to FoodShopScreen
         },
       ),
     );
@@ -241,7 +252,6 @@ class ShadowedTextField extends StatelessWidget {
 
 class BottomNavBarData extends ChangeNotifier {
   int _selectedIndex = 0;
-
   int get selectedIndex => _selectedIndex;
 
   void setIndex(int index) {

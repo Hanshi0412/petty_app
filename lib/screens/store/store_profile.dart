@@ -41,10 +41,11 @@ class FoodShopProfileData extends ChangeNotifier {
         ],
         productImageUrls: List<String>.generate(
           6,
-          (index) =>
+          (int index) =>
               'https://placehold.co/150x150/E0E0E0/333333?text=Product+${index + 1}',
         ),
-        avatarUrl: 'assets/images/Pet_Mart_Logo.png',
+        avatarUrl:
+            'https://www.gstatic.com/flutter-onestack-prototype/genui/example_1.jpg', // Replaced local asset with network placeholder URL
       );
 
   FoodShopProfileModel get profile => _profile;
@@ -67,8 +68,9 @@ class MyApp extends StatelessWidget {
         textTheme: GoogleFonts.interTextTheme(),
       ),
       home: ChangeNotifierProvider<FoodShopProfileData>(
-        create: (context) => FoodShopProfileData(),
-        builder: (context, child) => const FoodShopProfileScreen(),
+        create: (BuildContext context) => FoodShopProfileData(),
+        builder: (BuildContext context, Widget? child) =>
+            const FoodShopProfileScreen(),
       ),
     );
   }
@@ -284,7 +286,7 @@ class FoodShopProfileScreen extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     const Text(
-                      'Produits',
+                      'Products', // Changed from 'Produits' to 'Products'
                       style: TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
@@ -325,6 +327,37 @@ class FoodShopProfileScreen extends StatelessWidget {
                       },
                     ),
                   ],
+                ),
+              ),
+              const SizedBox(height: 20),
+              // Show Products Button
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                child: Center(
+                  child: ElevatedButton(
+                    onPressed: () {
+                      // Handle button press, e.g., navigate to a full product list
+                    },
+                    style: ElevatedButton.styleFrom(
+                      foregroundColor: Colors.white,
+                      backgroundColor: Colors.orange, // Text color
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 40,
+                        vertical: 15,
+                      ),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(30),
+                      ),
+                      minimumSize: const Size(
+                        double.infinity,
+                        50,
+                      ), // Full width
+                    ),
+                    child: const Text(
+                      'Show More Products',
+                      style: TextStyle(fontSize: 16),
+                    ),
+                  ),
                 ),
               ),
               const SizedBox(height: 20),
